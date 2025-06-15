@@ -54,7 +54,7 @@ def show_all_tasks():
         tasks = result.rows
 
         # And show them on the page
-        return render_template("pages/tasks.jinja", tasks=tasks)
+        return render_template("pages/tasks.jinja", task=tasks)
 
 
 #-----------------------------------------------------------
@@ -64,7 +64,7 @@ def show_all_tasks():
 def show_one_tasks(id):
     with connect_db() as client:
         # Get the task details from the DB
-        sql = "SELECT id, name, price FROM tasks WHERE id=?"
+        sql = "SELECT id, name, priority FROM tasks WHERE id=?"
         values = [id]
         result = client.execute(sql, values)
 
@@ -86,16 +86,16 @@ def show_one_tasks(id):
 def add_a_task():
     # Get the data from the form
     name  = request.form.get("name")
-    price = request.form.get("price")
+    priority = request.form.get("priority")
 
     # Sanitise the inputs
     name = html.escape(name)
-    price = html.escape(price)
+    priority = html.escape(priority)
 
     with connect_db() as client:
         # Add the task to the DB
-        sql = "INSERT INTO tasks (name, price) VALUES (?, ?)"
-        values = [name, price]
+        sql = "INSERT INTO tasks (name, priority) VALUES (?, ?)"
+        values = [name, priority]
         client.execute(sql, values)
 
         # Go back to the home page

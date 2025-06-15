@@ -1,8 +1,8 @@
 {#=====================================================
   Home page
   - Hero style greeting banner
-  - List of tasks passed in as 'tasks' array
-  - Form for adding a new task
+  - List of things passed in as 'things' array
+  - Form for adding a new thing
 =====================================================#}
 
 {% extends 'pages/base.jinja' %}
@@ -17,49 +17,38 @@
 
 {% block content %}
 
-    <h1>Flask Demo App with Turso DB</h1>
+    <h1>To do list:</h1>
 
-    <p>This is a simple Flask app that connects to a Turso database to save and retrieve data. This can be used as the basis of your web app.</p>
+    <p>Do them...</p>
 
-    <p>It includes...</p>
-
-    <ul>
-        <li>Example routes</li>
-        <li>Example static pages</li>
-        <li>Missing page and server error pages</li>
-        <li>DB connection and error handling</li>
-        <li>Example CRUD actions: Create and Delete</li>
-        <li>Flash messages for information</li>
-    </ul>
-
-    <a href="/tasks" role="button">To Tasks</a>
-
-    </article>
    
 
     <article>
 
-        <ul>
-            {% for task in tasks %}
+       
+           
+       
+        {% for task in tasks %}
 
-                <li>
-                    <a href="/task/{{ task.id }}">
-                        {{ task.name }}
-                    </a>
-                </li>
+            <li>
+                   
+            {{ task.priority }} {{ task.name }}
+                   
+            </li>  
 
             {% else %}
 
-                <p>You have no tasks!</p>
+            <p>idk tbh</p>
 
-            {% endfor %}
-        </ul>
+        {% endfor %}
+       
 
     </article>
 
+
     <article>
 
-        <h3>Add Task</h3>
+        <h3>Add a New Task...</h3>
 
         <form action="/add" method="POST">
 
@@ -73,16 +62,15 @@
             <input
                 type="number"
                 name="priority"
-                min="0"
-                placeholder="Task number"
+                min="1"
+                placeholder="Priority level"
                 required
             >
 
-            <button>Add a task</button>
+            <button>Add the Task</button>
 
         </form>
 
     </article>
+
 {% endblock %}
-
-

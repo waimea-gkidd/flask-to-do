@@ -22,19 +22,18 @@
     <article>
 
         <header>
-            <h3>{{ tasks.name }}</h3>
+            <h3>{{ task.name }}</h3>
         </header>
 
-        <p>Price: <strong>${{ tasks.price }}</strong></p>
+       
 
         <footer>
-            <a href="/delete/{{ task.id }}" onclick="return confirm('Really delete?');">Delete</a>
+            <a href="/delete/{{ tasks.id }}" onclick="return confirm('Really delete?');">Delete</a>
         </footer>
 
     </article>
 
 
-    <a role="button" href="/tasks.jinja">Back to task List</a>
+    <a role="button" href="/tasks">Back to the To Do List</a>
 
 {% endblock %}
-
