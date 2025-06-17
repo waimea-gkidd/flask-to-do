@@ -27,28 +27,46 @@
 
        
            
-       
-        {% for task in tasks %}
+    {#{% for task in tasks %}
+    <li>
+    <p class="task"> 
+    <span class="priority">
+    {{ task.priority }}
+    </span> <span class="name">
+    {{ task.name }}
+    </span> 
+    </p> 
+    </li> 
+    {% endfor %}#}
 
+           
+        {% for task in tasks %}
+    
             <li>
-                   
+                   {% if task.complete %}
+            🗹 
+           {% else %}
+            ☐
+           {% endif %}
+                        
             {{ task.priority }} {{ task.name }}
-                   
+          
+      
             </li>  
 
             {% else %}
 
-            <p>idk tbh</p>
+            <p>fill in later</p>
 
         {% endfor %}
-       
 
     </article>
 
 
+
     <article>
 
-        <h3>Add a New Task...</h3>
+        <h3>Add Task...</h3>
 
         <form action="/add" method="POST">
 
@@ -67,7 +85,7 @@
                 required
             >
 
-            <button>Add the Task</button>
+            <button>Add  Task</button>
 
         </form>
 

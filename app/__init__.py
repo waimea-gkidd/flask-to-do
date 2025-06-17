@@ -27,7 +27,7 @@ register_error_handlers(app)
 def index():
     with connect_db() as client:
         # Get all the tasks from the DB
-        sql = "SELECT name, priority, complete FROM tasks ORDER BY name DESC"
+        sql = "SELECT complete, name, priority FROM tasks ORDER BY priority DESC"
         result = client.execute(sql)
         tasks = result.rows
 
@@ -100,7 +100,7 @@ def add_a_task():
 
         # Go back to the home page
         flash(f"Task '{name}' added", "success")
-        return redirect("/tasks")
+        return redirect("/")
 
 
 #-----------------------------------------------------------
@@ -117,5 +117,13 @@ def delete_a_task(id):
         # Go back to the home page
         flash("task deleted", "warning")
         return redirect("/tasks")
+#----------------------------------------------------------
+@app.get("/complete")
+def complete(id):
+    with connect_db() as client:
+        sql = "UPDATE FROM tasks WHERE id=?"
+        values = (id)
+        client.execute(sql,values)
+    return render_template("pages/home.jinja")
 
 
