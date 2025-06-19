@@ -17,27 +17,12 @@
 
 {% block content %}
 
-    <h1>To do list:</h1>
+    <h1>Tasks to do</h1>
 
-    <p>Do them...</p>
 
    
 
     <article>
-
-       
-           
-    {#{% for task in tasks %}
-    <li>
-    <p class="task"> 
-    <span class="priority">
-    {{ task.priority }}
-    </span> <span class="name">
-    {{ task.name }}
-    </span> 
-    </p> 
-    </li> 
-    {% endfor %}#}
 
            
         {% for task in tasks %}
@@ -68,7 +53,7 @@
 
         <h3>Add Task...</h3>
 
-        <form action="/add" method="POST">
+        <form action="/add" method="POST" role="group">
 
             <input
                 type="text"
@@ -82,6 +67,7 @@
                 name="priority"
                 min="1"
                 placeholder="Priority level"
+                max="5"
                 required
             >
 

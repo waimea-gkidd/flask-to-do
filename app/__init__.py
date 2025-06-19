@@ -35,51 +35,6 @@ def index():
         return render_template("pages/home.jinja", tasks=tasks)
 
 #-----------------------------------------------------------
-# About page route
-#-----------------------------------------------------------
-@app.get("/about/")
-def about():
-    return render_template("pages/about.jinja")
-
-
-#-----------------------------------------------------------
-# tasks page route - Show all the tasks, and new task form
-#-----------------------------------------------------------
-@app.get("/tasks/")
-def show_all_tasks():
-    with connect_db() as client:
-        # Get all the tasks from the DB
-        sql = "SELECT id, name FROM tasks ORDER BY name ASC"
-        result = client.execute(sql)
-        tasks = result.rows
-
-        # And show them on the page
-        return render_template("pages/tasks.jinja", task=tasks)
-
-
-#-----------------------------------------------------------
-# task page route - Show details of a single task
-#-----------------------------------------------------------
-@app.get("/task/<int:id>")
-def show_one_tasks(id):
-    with connect_db() as client:
-        # Get the task details from the DB
-        sql = "SELECT id, name, priority FROM tasks WHERE id=?"
-        values = [id]
-        result = client.execute(sql, values)
-
-        # Did we get a result?
-        if result.rows:
-            # yes, so show it on the page
-            task = result.rows[0]
-            return render_template("pages/task.jinja", task=task)
-
-        else:
-            # No, so show error
-            return not_found_error()
-
-
-#-----------------------------------------------------------
 # Route for adding a task, using data posted from a form
 #-----------------------------------------------------------
 @app.post("/add")
@@ -99,7 +54,7 @@ def add_a_task():
         client.execute(sql, values)
 
         # Go back to the home page
-        flash(f"Task '{name}' added", "success")
+  
         return redirect("/")
 
 
@@ -125,5 +80,9 @@ def complete(id):
         values = (id)
         client.execute(sql,values)
     return render_template("pages/home.jinja")
+
+
+
+
 
 
