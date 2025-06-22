@@ -28,14 +28,14 @@
         {% for task in tasks %}
     
             <li>
-                   {% if task.complete %}
-            🗹 
-           {% else %}
-            ☐
-           {% endif %}
+                {% if task.complete %}
+                <a href="/incomplete/{{ task.id }}">🗹</a> 
+                {% else %}
+                <a href="/complete/{{ task.id }}">☐</a>
+                {% endif %}
                         
-            {{ task.priority }} {{ task.name }}
-          
+                <span>{{ task.priority }}</span> 
+                <span>{{ task.name }}</span>
       
             </li>  
 
@@ -53,7 +53,7 @@
 
         <h3>Add Task...</h3>
 
-        <form action="/add" method="POST" role="group">
+        <form action="/add" method="POST" role="group" >
 
             <input
                 type="text"

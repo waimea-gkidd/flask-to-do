@@ -27,7 +27,7 @@ register_error_handlers(app)
 def index():
     with connect_db() as client:
         # Get all the tasks from the DB
-        sql = "SELECT complete, name, priority FROM tasks ORDER BY priority DESC"
+        sql = "SELECT id, name, priority, complete FROM tasks ORDER BY priority DESC"
         result = client.execute(sql)
         tasks = result.rows
 
@@ -73,14 +73,27 @@ def delete_a_task(id):
         flash("task deleted", "warning")
         return redirect("/tasks")
 #----------------------------------------------------------
-@app.get("/complete")
-def complete(id):
+@app.get("/incomplete/<int:id>")
+def task_incomplete(id):
     with connect_db() as client:
-        sql = "UPDATE FROM tasks WHERE id=?"
-        values = (id)
-        client.execute(sql,values)
-    return render_template("pages/home.jinja")
+       
+        sql = "UPDATE tasks SET complete=0 WHERE id=?"
+        values = [id]
+        client.execute(sql, values)
 
+   
+    return redirect("/")
+#----------------------------------------------------------
+@app.get("/complete/<int:id>")
+def task_complete(id):
+    with connect_db() as client:
+      
+        sql = "UPDATE tasks SET complete=1 WHERE id=?"
+        values = [id]
+        client.execute(sql, values)
+
+      
+    return redirect("/")
 
 
 
